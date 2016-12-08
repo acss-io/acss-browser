@@ -1,4 +1,5 @@
 {
+  "browser": "acss-browser.min.js",
   "scripts": {
     "watch": "watchify main.js -o acss-browser.js",
     "build": "browserify main.js -o acss-browser.js",
