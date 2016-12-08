@@ -3,7 +3,7 @@ const insertCss = require('insert-css')
 
 const acss = new Atomizer()
 
-const _acssConfig = acssConfig || {}
+const _acssConfig = {}
 
 const genCSS = function(html) {
   const classes = acss.findClassNames(html)
@@ -12,16 +12,18 @@ const genCSS = function(html) {
   insertCss(css)
 }
 
+window.setAcssConfig = function(config) {
+  _acssConfig = config
+}
+
 // initial parse
-genCSS(document.getElementsByTagName('html')[0].innerHTML)
+const root = document.getElementsByTagName('html')[0]
+genCSS(root.innerHTML)
 
-const nodes = document.querySelectorAll('*')
-
-nodes.forEach(function(node) {
-  const observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-      genCSS(mutation.target.getAttribute('class'))
-    })
+// observe the document for changes
+const observer = new MutationObserver(function(mutations) {
+  mutations.forEach(function(mutation) {
+    genCSS(mutation.target.getAttribute('class'))
   })
-  observer.observe(node, { attributes: true, attributeFilter: ["class"]})
 })
+observer.observe(root, { attributes: true, attributeFilter: ["class"], subtree: true })
