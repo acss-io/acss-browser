@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "watch": "watchify main.js -o acss-browser.js",
+    "build": "browserify main.js -o acss-browser.js",
+    "minify": "uglifyjs acss-browser.js --compress --mangle -o acss-browser.min.js",
+    "dist": "npm run build && npm run minify"
+  },
+  "dependencies": {
+    "atomizer": "^3.3.8",
+    "insert-css": "^2.0.0",
+    "uglifyjs": "^2.4.10",
+    "watchify": "^3.7.0"
+  }
+}
