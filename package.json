@@ -11,6 +11,7 @@
   "dependencies": {
     "atomizer": "^3.3.8",
     "insert-css": "^2.0.0",
+    "mutation-summary": "^0.1.1",
     "uglifyjs": "^2.4.10",
     "watchify": "^3.7.0"
   }

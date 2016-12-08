@@ -1103,6 +1103,10 @@ ms@0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.1.tgz#9cd13c03adbff25b65effde7ce864ee952017098"
 
+mutation-summary@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/mutation-summary/-/mutation-summary-0.1.1.tgz#0cbdb0c991b1fb259657cc82b9e5710a53a416a9"
+
 nan@^2.3.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.4.0.tgz#fb3c59d45fe4effe215f0b890f8adf6eb32d2232"

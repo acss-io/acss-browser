@@ -1,29 +1,46 @@
-const Atomizer = require('atomizer')
-const insertCss = require('insert-css')
+var Atomizer = require('atomizer')
+var insertCss = require('insert-css')
+var MutationSummary = require('mutation-summary')
 
-const acss = new Atomizer()
+var acss = new Atomizer()
 
-const _acssConfig = {}
-
-const genCSS = function(html) {
-  const classes = acss.findClassNames(html)
-  const config  = acss.getConfig(classes, _acssConfig)
-  const css     = acss.getCss(config)
-  insertCss(css)
-}
+var _acssConfig = {}
 
 window.setAcssConfig = function(config) {
   _acssConfig = config
 }
 
+var genCSS = function(html) {
+  var classes = acss.findClassNames(html)
+  var config  = acss.getConfig(classes, _acssConfig)
+  var css     = acss.getCss(config)
+  insertCss(css)
+}
+
+var handleMutation = function(summaries) {
+  // summaries[0] represents changes to our first query (classes, in this case)
+  var changes = summaries[0]
+  console.log(changes)
+  // get all the classes of all the elements that changed
+  var classes = ""
+  changes.added.forEach(function(el) {
+    classes += el.getAttribute('class') + " "
+  })
+  changes.valueChanged.forEach(function(el) {
+    classes += el.getAttribute('class')
+  })
+  if (classes.length !== 0) {
+    console.log(classes)
+    genCSS(classes)
+  }
+}
+
 // initial parse
-const root = document.getElementsByTagName('html')[0]
+var root = document.getElementsByTagName('html')[0]
 genCSS(root.innerHTML)
 
 // observe the document for changes
-const observer = new MutationObserver(function(mutations) {
-  mutations.forEach(function(mutation) {
-    genCSS(mutation.target.getAttribute('class'))
-  })
+var observer = new MutationSummary({
+  queries: [{ attribute: 'class' }],
+  callback: handleMutation,
 })
-observer.observe(root, { attributes: true, attributeFilter: ["class"], subtree: true })
