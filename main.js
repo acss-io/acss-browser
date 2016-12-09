@@ -23,8 +23,6 @@ var genCSS = function(html) {
     return !result
   })
 
-  console.log(classes.length)
-
   if (classes.length) {
     var config = acss.getConfig(classes, _acssConfig)
     var css    = acss.getCss(config)
@@ -37,7 +35,6 @@ var genCSS = function(html) {
 var handleMutation = function(summaries) {
   // summaries[0] represents changes to our first query (classes, in this case)
   var changes = summaries[0]
-  console.log(changes)
   // get all the classes of all the elements that changed
   var classes = ""
   changes.added.forEach(function(el) {
@@ -47,7 +44,6 @@ var handleMutation = function(summaries) {
     classes += el.getAttribute('class')
   })
   if (classes.length !== 0) {
-    console.log(classes)
     genCSS(classes)
   }
 }
