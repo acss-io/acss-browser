@@ -5,16 +5,33 @@ var MutationSummary = require('mutation-summary')
 var acss = new Atomizer()
 
 var _acssConfig = {}
-
-window.setAcssConfig = function(config) {
-  _acssConfig = config
+if (typeof acssConfig === 'object') {
+  _acssConfig = acssConfig
 }
 
+var appliedClasses = []
 var genCSS = function(html) {
+
+  // find classes and remove ones that have already been generated
   var classes = acss.findClassNames(html)
-  var config  = acss.getConfig(classes, _acssConfig)
-  var css     = acss.getCss(config)
-  insertCss(css)
+  // filter by classes
+  .filter(function(cls) {
+    // see if we can find a a matching class
+    var result = appliedClasses.find(function(aCls) {
+      return cls === aCls
+    })
+    return !result
+  })
+
+  console.log(classes.length)
+
+  if (classes.length) {
+    var config = acss.getConfig(classes, _acssConfig)
+    var css    = acss.getCss(config)
+    insertCss(css)
+    appliedClasses = appliedClasses.concat(classes)
+  }
+
 }
 
 var handleMutation = function(summaries) {
