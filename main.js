@@ -10,14 +10,13 @@ if (typeof acssConfig === 'object') {
 }
 
 var appliedClasses = []
-var genCSS = function(html) {
-
+var genCSS = function (html) {
   // find classes and remove ones that have already been generated
   var classes = acss.findClassNames(html)
   // filter by classes
-  .filter(function(cls) {
+  .filter(function (cls) {
     // see if we can find a a matching class
-    var result = appliedClasses.find(function(aCls) {
+    var result = appliedClasses.find(function (aCls) {
       return cls === aCls
     })
     return !result
@@ -25,22 +24,21 @@ var genCSS = function(html) {
 
   if (classes.length) {
     var config = acss.getConfig(classes, _acssConfig)
-    var css    = acss.getCss(config)
+    var css = acss.getCss(config)
     insertCss(css)
     appliedClasses = appliedClasses.concat(classes)
   }
-
 }
 
-var handleMutation = function(summaries) {
+var handleMutation = function (summaries) {
   // summaries[0] represents changes to our first query (classes, in this case)
   var changes = summaries[0]
   // get all the classes of all the elements that changed
-  var classes = ""
-  changes.added.forEach(function(el) {
-    classes += el.getAttribute('class') + " "
+  var classes = ''
+  changes.added.forEach(function (el) {
+    classes += el.getAttribute('class') + ' '
   })
-  changes.valueChanged.forEach(function(el) {
+  changes.valueChanged.forEach(function (el) {
     classes += el.getAttribute('class')
   })
   if (classes.length !== 0) {
@@ -55,5 +53,5 @@ genCSS(root.innerHTML)
 // observe the document for changes
 var observer = new MutationSummary({
   queries: [{ attribute: 'class' }],
-  callback: handleMutation,
+  callback: handleMutation
 })
