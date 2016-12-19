@@ -10,6 +10,11 @@ if (typeof acssConfig === 'object') {
   _acssConfig = acssConfig
 }
 
+var _ns
+if (typeof acssNamespace === 'string') {
+  _ns = acssNamespace
+}
+
 var appliedClasses = []
 var genCSS = function (html) {
   // find classes and remove ones that have already been generated
@@ -25,7 +30,7 @@ var genCSS = function (html) {
 
   if (classes.length) {
     var config = acss.getConfig(classes, _acssConfig)
-    var css = acss.getCss(config)
+    var css = acss.getCss(config, {namespace: _ns})
     insertCss(css)
     appliedClasses = appliedClasses.concat(classes)
   }

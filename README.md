@@ -9,7 +9,9 @@ Just include this script tag somewhere on your page.
 <script src="https://unpkg.com/acss-browser"></script>
 ```
 
-`acss-browser` will load atomizer config from an `acssConfig` variable before including the script.  Use this to define variables, breakpoints, etc.
+## config
+
+Define your atomizer config as `acssConfig`.  You can also define `acssNamespace`.
 
 ```
 <script>
@@ -18,6 +20,7 @@ Just include this script tag somewhere on your page.
       'primary': '#f3f3f3'
     }
   }
+  var acssNamespace = '#acssRoot'
 </script>
 <script src="https://unpkg.com/acss-browser"></script>
 ```
