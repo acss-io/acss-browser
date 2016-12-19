@@ -1,6 +1,6 @@
 {
   "name": "acss-browser",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "browser": "acss-browser.min.js",
   "scripts": {
     "watch": "watchify main.js -o acss-browser.js",
