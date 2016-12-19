@@ -44,7 +44,7 @@ var handleMutation = function (summaries) {
     classes += el.getAttribute('class') + ' '
   })
   changes.valueChanged.forEach(function (el) {
-    classes += el.getAttribute('class')
+    classes += el.getAttribute('class') + ' '
   })
   if (classes.length !== 0) {
     genCSS(classes)
